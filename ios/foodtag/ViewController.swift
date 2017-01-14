@@ -23,7 +23,7 @@ final class ViewController: UIViewController {
             videoLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
             baseView.layer.addSublayer(videoLayer)
         } else {
-            fatalError("VideoLayerがNil")
+            fatalError("Device Error")
         }
     }
     
