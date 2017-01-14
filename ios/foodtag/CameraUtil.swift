@@ -48,7 +48,16 @@ final class CameraUtil: NSObject {
                 previewPhotoSampleBuffer: nil),
             let image = UIImage(data: imageData) {
             
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            // resize image
+            let scale = 227 / image.size.width
+            let newHeight = image.size.height * scale
+            UIGraphicsBeginImageContext(CGSize(width: 227, height: 227))
+            image.draw(in: CGRect(x: 0, y: 0, width: 227, height: 227))
+            
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            UIImageWriteToSavedPhotosAlbum(newImage!, nil, nil, nil)
         }
     }
 }
@@ -67,6 +76,7 @@ extension CameraUtil: AVCapturePhotoCaptureDelegate {
             print(error.localizedDescription)
             return
         }
+        
         savePhoto(imageDataBuffer: photoSampleBuffer!)
     }
 }
