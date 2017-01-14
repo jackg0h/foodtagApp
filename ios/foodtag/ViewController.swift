@@ -29,5 +29,6 @@ final class ViewController: UIViewController {
     
     @IBAction func photoDidTap(_ sender: UIButton) {
         camera.takePhoto()
+        self.session.stopRunning()
     }
 }

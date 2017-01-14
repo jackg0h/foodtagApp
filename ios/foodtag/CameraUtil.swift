@@ -50,14 +50,14 @@ final class CameraUtil: NSObject {
             
             // resize image
             let scale = 227 / image.size.width
-            let newHeight = image.size.height * scale
+            _ = image.size.height * scale
             UIGraphicsBeginImageContext(CGSize(width: 227, height: 227))
             image.draw(in: CGRect(x: 0, y: 0, width: 227, height: 227))
             
             let newImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             
-            UIImageWriteToSavedPhotosAlbum(newImage!, nil, nil, nil)
+            //UIImageWriteToSavedPhotosAlbum(newImage!, nil, nil, nil)
         }
     }
 }
