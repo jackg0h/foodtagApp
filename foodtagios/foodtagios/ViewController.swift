@@ -11,18 +11,17 @@ import AVFoundation
 import Alamofire
 
 class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
-
- 
-  
-   
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var button: UIButton!
-
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    // remove this later
+    @IBOutlet var uploadProgressView: UIView!
+    
     var captureSession = AVCaptureSession()
     var sessionOutput = AVCapturePhotoOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
     var foodImage: UIImage!
-    
     let URL_PATH : String = "https://ca9b4884.ngrok.io"
 
     
@@ -51,6 +50,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                             captureSession.addOutput(sessionOutput)
                             
                             previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+                            previewLayer.frame = self.view.bounds;
                             previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
                             previewLayer.connection.videoOrientation = .portrait
                             
@@ -93,10 +93,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                 let data = UIImageJPEGRepresentation(self.foodImage!, 0.8)
             
                 captureSession.stopRunning()
-                previewLayer.removeFromSuperlayer()
-                
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "results")
-                self.present(vc, animated: true, completion:  nil)
+                //previewLayer.removeFromSuperlayer()
            
             
             let headers: HTTPHeaders = [
@@ -118,11 +115,26 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                     switch encodingResult {
                     case .success(let upload, _, _):
                         upload.responseJSON { response in
-                            debugPrint(response)
+                            debugPrint(response.result)
+                            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "results")
+                            self.present(vc, animated: true, completion:  nil)
                         }
+                        
+                        
+                        upload.uploadProgress { progress in // main queue by default
+                                //print("Upload Progress: \(progress.fractionCompleted)")
+                                let progress = Float(progress.fractionCompleted)
+                                print(progress)
+                                self.progressView.progress = progress
+                    
+                        }
+                        
+                        
+                        
                     case .failure(let encodingError):
                         print(encodingError)
                     }
+                    
             }
             )
             
