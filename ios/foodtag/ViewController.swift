@@ -23,11 +23,12 @@ final class ViewController: UIViewController {
             videoLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
             baseView.layer.addSublayer(videoLayer)
         } else {
-            fatalError("VideoLayerがNil")
+            fatalError("Device Error")
         }
     }
     
     @IBAction func photoDidTap(_ sender: UIButton) {
         camera.takePhoto()
+        self.session.stopRunning()
     }
 }
