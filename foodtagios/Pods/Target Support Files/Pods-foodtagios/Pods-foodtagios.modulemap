@@ -1,0 +1,6 @@
+framework module Pods_foodtagios {
+  umbrella header "Pods-foodtagios-umbrella.h"
+
+  export *
+  module * { export * }
+}
