@@ -23,6 +23,9 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
     var previewLayer = AVCaptureVideoPreviewLayer()
     var foodImage: UIImage!
     let URL_PATH : String = "https://ca9b4884.ngrok.io"
+    
+    
+    
 
     
     override func viewDidLoad() {
@@ -50,18 +53,27 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                             captureSession.addOutput(sessionOutput)
                             
                             previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-                            previewLayer.frame = self.view.bounds;
+                            //previewLayer.frame = self.view.bounds;
+                            previewLayer.frame = cameraView.frame
                             previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
                             previewLayer.connection.videoOrientation = .portrait
                             
+                            
+                            
                             cameraView.layer.addSublayer(previewLayer)
+                            
+
                             //cameraView.addSubview(button)
                             
                             previewLayer.position = CGPoint (x: self.cameraView.frame.width / 2, y: self.cameraView.frame.height / 2)
                             previewLayer.bounds = cameraView.frame
                             
+                            
                             captureSession.startRunning()
                             
+                        }
+                        if captureSession.canSetSessionPreset(AVCaptureSessionPreset640x480){
+                            captureSession.sessionPreset = AVCaptureSessionPresetMedium
                         }
                     }
                     
@@ -126,7 +138,10 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                                 let progress = Float(progress.fractionCompleted)
                                 print(progress)
                                 self.progressView.progress = progress
-                    
+                        
+                            if(progress == 1){
+
+                            }
                         }
                         
                         
