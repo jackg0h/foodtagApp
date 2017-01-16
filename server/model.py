@@ -9,7 +9,7 @@ from convnetskeras.customlayers import convolution2Dgroup, crosschannelnormaliza
     splittensor, Softmax4D
 
 
-def alexnet(weights_path=None, nb_class=100):
+def alexnet(weights_path=None, nb_class=None):
 
     inputs = Input(shape=(3,227,227))
 
@@ -42,6 +42,9 @@ def alexnet(weights_path=None, nb_class=100):
         ) for i in range(2)], mode='concat',concat_axis=1,name="conv_5")
 
     conv_5 = MaxPooling2D((3, 3), strides=(2,2),name="convpool_5")(conv_5)
+
+
+
     dense_1 = Flatten(name="flatten")(conv_5)
     dense_1 = Dense(4096, activation='relu',name='dense_1')(dense_1)
     dense_2 = Dropout(0.5)(dense_1)
@@ -55,5 +58,7 @@ def alexnet(weights_path=None, nb_class=100):
 
     if weights_path:
         base_model.load_weights(weights_path)
+
+    base_model = Model(input=inputs, output=dense_2)
 
     return base_model
