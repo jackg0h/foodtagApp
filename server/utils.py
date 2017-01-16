@@ -40,4 +40,4 @@ def decode_label(index):
          'SeriMuka' , 'SotoAyam' , 'TandooriChicken' , 'TangYuan' , 'TauFooFah',
          'TauhuSumbat' , 'Thosai' , 'TomYumSoup' , 'Wajik' , 'WanTanMee' , 'WaTanHo' , 'Wonton',
          'YamCake' , 'YongTauFu' , 'Youtiao' , 'Yusheng']
-    return labels[0][index]
+    return labels[index]
