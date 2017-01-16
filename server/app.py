@@ -18,7 +18,7 @@ import os
 import time
 
 from model import alexnet
-from utils import preprocess_image
+from utils import preprocess_image, decode_label
 
 app = Flask(__name__)
 UPLOAD_FOLDER = './uploads'
@@ -49,15 +49,28 @@ def upload_file():
             n = 5
             indices = np.argsort(out)[:,:-n-1:-1]
 
-            top1 = np.argmax(out)
-            return jsonify({'upload':True, 'name' : filename, 'prediction': {
-            'top1': str(indices[0][0]),
-            'proba': str(round(out[0][indices][0][0], 0))
+
+            return jsonify({'upload':True, 'name' : filename,
+            'top1': {
+                'label': str(decode_label(indices[0][0])),
+                'proba': str(round(out[0][indices][0][0], 0))
             },
-            'top2': str(indices[0][1]),
-            'top3': str(indices[0][2]),
-            'top4': str(indices[0][3]),
-            'top5': str(indices[0][4]),
+            'top2': {
+                'label': str(decode_label(indices[0][1])),
+                'proba': str(round(out[0][indices][0][1], 0))
+            },
+            'top3': {
+                'label': str(decode_label(indices[0][2])),
+                'proba': str(round(out[0][indices][0][2], 0))
+            },
+            'top4': {
+                'label': str(decode_label(indices[0][3])),
+                'proba': str(round(out[0][indices][0][3], 0))
+            },
+            'top5': {
+                'label': str(decode_label(indices[0][4])),
+                'proba': str(round(out[0][indices][0][4], 0))
+            }
             })
 
     return '''

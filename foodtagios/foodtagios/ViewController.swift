@@ -113,11 +113,11 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
 
                 
             let headers: HTTPHeaders = [
-                "Origin": "http://ca9b4884.ngrok.io",
+                "Origin": "https://38a31a76.ngrok.io",
                 "Content-type": "multipart/form-data; boundary=----WebKitFormBoundaryg9qBUnBrYZZ2rZOy",
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36",
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-                "Referer": "http://ca9b4884.ngrok.io/picture"
+                "Referer": "https://38a31a76.ngrok.io/picture"
             ]
             
             Alamofire.upload(
@@ -125,7 +125,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                     multipartFormData.append(data!, withName: "file",fileName: "file", mimeType: "image/jpeg")
                    
             },
-                to: "https://ca9b4884.ngrok.io/picture",
+                to: "https://38a31a76.ngrok.io/picture",
                 headers: headers,
                 encodingCompletion: { encodingResult in
                     switch encodingResult {
