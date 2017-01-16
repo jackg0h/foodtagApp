@@ -1,4 +1,9 @@
 #!flask/bin/python
+import warnings
+warnings.filterwarnings('ignore')
+from keras.preprocessing import image
+import numpy as np
+
 from flask import Flask
 from flask import jsonify
 from flask import abort
@@ -12,15 +17,17 @@ import urllib2
 import os
 import time
 
+from model import alexnet
+from utils import preprocess_image
+
 app = Flask(__name__)
 UPLOAD_FOLDER = './uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 picsList=[]
 
-###################
-#  Download zone  #
-###################
+
+model = alexnet("alex_finetune567_aug_weights.h5", nb_class=100)
 
 
 def allowed_file(filename):
@@ -34,7 +41,24 @@ def upload_file():
         if file:
             filename = str(time.time()).replace(".", "") + ".jpg"
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return jsonify({'upload':True, 'name' : filename})
+
+            img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            img = image.load_img(img_path, target_size=(227, 227))
+            im = preprocess_image(img)
+            out = model.predict(im)
+            n = 5
+            indices = np.argsort(out)[:,:-n-1:-1]
+
+            top1 = np.argmax(out)
+            return jsonify({'upload':True, 'name' : filename, 'prediction': {
+            'top1': str(indices[0][0]),
+            'proba': str(round(out[0][indices][0][0], 0))
+            },
+            'top2': str(indices[0][1]),
+            'top3': str(indices[0][2]),
+            'top4': str(indices[0][3]),
+            'top5': str(indices[0][4]),
+            })
 
     return '''
     <!doctype html>
