@@ -14,6 +14,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
+    var documentController: UIDocumentInteractionController!
     
     // remove this later
     @IBOutlet var uploadProgressView: UIView!
@@ -82,7 +83,6 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                     print(avError)
                 }
                 
-                
             }
             
         }
@@ -102,12 +102,16 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
         if let sampleBuffer = photoSampleBuffer, let previewBuffer = photoSampleBuffer, let dataImage = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
         
                 self.foodImage = UIImage(data: dataImage)
-                let data = UIImageJPEGRepresentation(self.foodImage!, 0.8)
+                //c = CGSize(width: 100, height: 100)
+            
+            
+            
+                let data = UIImageJPEGRepresentation(resizeImage(image: self.foodImage, targetSize: CGSize(width: 227, height: 227)), 0.8)
             
                 captureSession.stopRunning()
                 //previewLayer.removeFromSuperlayer()
-           
-            
+
+                
             let headers: HTTPHeaders = [
                 "Origin": "http://ca9b4884.ngrok.io",
                 "Content-type": "multipart/form-data; boundary=----WebKitFormBoundaryg9qBUnBrYZZ2rZOy",
@@ -156,6 +160,41 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
         }
     }
     /** end capture **/
+    
+    /** resize image start **/
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        var newSize: CGSize
+        /* resize based on ratio
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+
+        // Figure out what our orientation is, and use that to form the rectangle
+        
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+
+        */
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        newSize = CGSize(width: 227,  height: 227)
+        let rect = CGRect(x: 0, y: 0, width: 227, height: 227)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    
+    /** resize image end **/
+    
     
     /** start take photo **/
     @IBAction func takePhoto(_ sender: Any) {
