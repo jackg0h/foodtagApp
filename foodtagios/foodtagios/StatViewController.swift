@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Social
 
 class StatViewController: UIViewController {
     weak var delegate: ViewController!
@@ -27,11 +28,13 @@ class StatViewController: UIViewController {
     var top5ProbaPassed = Float()
     
     // connect 
-    @IBOutlet weak var top1Label: UILabel!
-    @IBOutlet weak var top2Label: UILabel!
-    @IBOutlet weak var top3Label: UILabel!
-    @IBOutlet weak var top4Label: UILabel!
-    @IBOutlet weak var top5Label: UILabel!
+
+    @IBOutlet weak var top1Label: UIButton!
+    
+    @IBOutlet weak var top2Label: UIButton!
+    @IBOutlet weak var top3Label: UIButton!
+    @IBOutlet weak var top4Label: UIButton!
+    @IBOutlet weak var top5Label: UIButton!
     @IBOutlet weak var top1Progress: UIProgressView!
     @IBOutlet weak var top2Progress: UIProgressView!
     @IBOutlet weak var top3Progress: UIProgressView!
@@ -43,15 +46,22 @@ class StatViewController: UIViewController {
     @IBOutlet weak var top4Percent: UILabel!
     @IBOutlet weak var top5Percent: UILabel!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         foodImageView.image = theImagePassed
-        top1Label.text = top1LabelPassed + "  \(top1ProbaPassed)"
-        top2Label.text = top2LabelPassed
-        top3Label.text = top3LabelPassed
-        top4Label.text = top4LabelPassed
-        top5Label.text = top5LabelPassed
+        top1Label.setTitle("#" + top1LabelPassed,for: .normal)
+        top2Label.setTitle("#" + top2LabelPassed,for: .normal)
+        top3Label.setTitle("#" + top3LabelPassed,for: .normal)
+        top4Label.setTitle("#" + top4LabelPassed,for: .normal)
+        top5Label.setTitle("#" + top5LabelPassed,for: .normal)
         
+        top1Percent.text = String(top1ProbaPassed*100) + "%"
+        top2Percent.text = String(top2ProbaPassed*100) + "%"
+        top3Percent.text = String(top3ProbaPassed*100) + "%"
+        top4Percent.text = String(top4ProbaPassed*100) + "%"
+        top5Percent.text = String(top5ProbaPassed*100) + "%"
+
         //print(top1ProbaPassed/100)
         top1Progress.progress = top1ProbaPassed
         top2Progress.progress = top2ProbaPassed
@@ -67,15 +77,39 @@ class StatViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func top1Share(_ sender: Any) {
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        vc?.setInitialText("#" + top1LabelPassed)
+        vc?.add(foodImageView.image)
+        present(vc!, animated: true, completion: nil)
     }
-    */
 
+    @IBAction func top2Share(_ sender: Any) {
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        vc?.setInitialText("#" + top2LabelPassed)
+        vc?.add(foodImageView.image)
+        present(vc!, animated: true, completion: nil)
+    }
+
+    @IBAction func top3Share(_ sender: Any) {
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        vc?.setInitialText("#" + top3LabelPassed)
+        vc?.add(foodImageView.image)
+        present(vc!, animated: true, completion: nil)
+    }
+    
+    @IBAction func top4Share(_ sender: Any) {
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        vc?.setInitialText("#" + top4LabelPassed)
+        vc?.add(foodImageView.image)
+        present(vc!, animated: true, completion: nil)
+    }
+ 
+    @IBAction func top5Share(_ sender: Any) {
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        vc?.setInitialText("#" + top5LabelPassed)
+        vc?.add(foodImageView.image)
+        present(vc!, animated: true, completion: nil)
+    }
+ 
 }
