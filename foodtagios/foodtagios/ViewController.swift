@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
     @IBOutlet weak var cameraView: UIView!
@@ -109,9 +110,10 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                 let data = UIImageJPEGRepresentation(resizeImage(image: self.foodImage, targetSize: CGSize(width: 227, height: 227)), 0.8)
             
                 captureSession.stopRunning()
+            
                 //previewLayer.removeFromSuperlayer()
 
-                
+            
             let headers: HTTPHeaders = [
                 "Origin": "https://38a31a76.ngrok.io",
                 "Content-type": "multipart/form-data; boundary=----WebKitFormBoundaryg9qBUnBrYZZ2rZOy",
@@ -125,22 +127,54 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                     multipartFormData.append(data!, withName: "file",fileName: "file", mimeType: "image/jpeg")
                    
             },
-                to: "https://38a31a76.ngrok.io/picture",
+                to: "https://23409498.ngrok.io/picture",
                 headers: headers,
                 encodingCompletion: { encodingResult in
                     switch encodingResult {
                     case .success(let upload, _, _):
                         upload.responseJSON { response in
-                            debugPrint(response.result)
-                            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "results")
-                            self.present(vc, animated: true, completion:  nil)
+                            //print("Response: \(response.response)")
+                            let responsedata = response.result.value
+                            let json = JSON(responsedata)
+                            
+                            
+                            let top1prob = Float(json["top1"]["proba"].string!)
+                            let top2prob = Float(json["top2"]["proba"].string!)
+                            let top3prob = Float(json["top3"]["proba"].string!)
+                            let top4prob = Float(json["top4"]["proba"].string!)
+                            let top5prob = Float(json["top5"]["proba"].string!)
+                            
+                            let controller = self.storyboard?.instantiateViewController(withIdentifier: "statView") as! StatViewController
+                            controller.top1LabelPassed = json["top1"]["label"].string!
+                            controller.top2LabelPassed = json["top2"]["label"].string!
+                            controller.top3LabelPassed = json["top3"]["label"].string!
+                            controller.top4LabelPassed = json["top4"]["label"].string!
+                            controller.top5LabelPassed = json["top5"]["label"].string!
+                            
+                            controller.top1ProbaPassed = top1prob!/100
+                            controller.top2ProbaPassed = top2prob!/100
+                            controller.top3ProbaPassed = top3prob!/100
+                            controller.top4ProbaPassed = top4prob!/100
+                            controller.top5ProbaPassed = top5prob!/100
+                            
+                            
+                            controller.theImagePassed = self.foodImage!
+                            
+                            
+                            //controller.top1ProbaPassed = Float(json["top5"]["proba"].number!)
+
+                            self.present(controller, animated: true, completion: nil)
+                            self.button.isEnabled = true
+                            
+                            /** pass image to second view **/
+                            //vc.theImagePassed = self.foodImage!
                         }
                         
                         
                         upload.uploadProgress { progress in // main queue by default
                                 //print("Upload Progress: \(progress.fractionCompleted)")
                                 let progress = Float(progress.fractionCompleted)
-                                print(progress)
+                                //print(progress)
                                 self.progressView.progress = progress
                         
                             if(progress == 1){
@@ -198,6 +232,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
     
     /** start take photo **/
     @IBAction func takePhoto(_ sender: Any) {
+        self.button.isEnabled = false
         let settings = AVCapturePhotoSettings()
         let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
         let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String : previewPixelType, kCVPixelBufferWidthKey as String : 160, kCVPixelBufferHeightKey as String : 160]

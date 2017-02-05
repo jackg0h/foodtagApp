@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AE4B7E1E2BB1A000D57973"
-               BuildableName = "foodtagios.app"
+               BuildableName = "FoodTag.app"
                BlueprintName = "foodtagios"
                ReferencedContainer = "container:foodtagios.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AE4B7E1E2BB1A000D57973"
-            BuildableName = "foodtagios.app"
+            BuildableName = "FoodTag.app"
             BlueprintName = "foodtagios"
             ReferencedContainer = "container:foodtagios.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AE4B7E1E2BB1A000D57973"
-            BuildableName = "foodtagios.app"
+            BuildableName = "FoodTag.app"
             BlueprintName = "foodtagios"
             ReferencedContainer = "container:foodtagios.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AE4B7E1E2BB1A000D57973"
-            BuildableName = "foodtagios.app"
+            BuildableName = "FoodTag.app"
             BlueprintName = "foodtagios"
             ReferencedContainer = "container:foodtagios.xcodeproj">
          </BuildableReference>

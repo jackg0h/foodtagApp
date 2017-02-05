@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		045716391E2D628300ACD43D /* StatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045716381E2D628300ACD43D /* StatViewController.swift */; };
 		04AE4B831E2BB1A000D57973 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE4B821E2BB1A000D57973 /* AppDelegate.swift */; };
 		04AE4B851E2BB1A000D57973 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AE4B841E2BB1A000D57973 /* ViewController.swift */; };
 		04AE4B881E2BB1A000D57973 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04AE4B861E2BB1A000D57973 /* Main.storyboard */; };
@@ -35,7 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04AE4B7F1E2BB1A000D57973 /* foodtagios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodtagios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		045716381E2D628300ACD43D /* StatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatViewController.swift; sourceTree = "<group>"; };
+		04AE4B7F1E2BB1A000D57973 /* FoodTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AE4B821E2BB1A000D57973 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04AE4B841E2BB1A000D57973 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04AE4B871E2BB1A000D57973 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,7 +96,7 @@
 		04AE4B801E2BB1A000D57973 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04AE4B7F1E2BB1A000D57973 /* foodtagios.app */,
+				04AE4B7F1E2BB1A000D57973 /* FoodTag.app */,
 				04AE4B931E2BB1A000D57973 /* foodtagiosTests.xctest */,
 				04AE4B9E1E2BB1A000D57973 /* foodtagiosUITests.xctest */,
 			);
@@ -110,6 +112,7 @@
 				04AE4B891E2BB1A000D57973 /* Assets.xcassets */,
 				04AE4B8B1E2BB1A000D57973 /* LaunchScreen.storyboard */,
 				04AE4B8E1E2BB1A000D57973 /* Info.plist */,
+				045716381E2D628300ACD43D /* StatViewController.swift */,
 			);
 			path = foodtagios;
 			sourceTree = "<group>";
@@ -169,7 +172,7 @@
 			);
 			name = foodtagios;
 			productName = foodtagios;
-			productReference = 04AE4B7F1E2BB1A000D57973 /* foodtagios.app */;
+			productReference = 04AE4B7F1E2BB1A000D57973 /* FoodTag.app */;
 			productType = "com.apple.product-type.application";
 		};
 		04AE4B921E2BB1A000D57973 /* foodtagiosTests */ = {
@@ -336,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04AE4B851E2BB1A000D57973 /* ViewController.swift in Sources */,
+				045716391E2D628300ACD43D /* StatViewController.swift in Sources */,
 				04AE4B831E2BB1A000D57973 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,7 +496,7 @@
 				INFOPLIST_FILE = foodtagios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jack.foodtagios;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FoodTag;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -507,7 +511,7 @@
 				INFOPLIST_FILE = foodtagios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jack.foodtagios;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FoodTag;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
