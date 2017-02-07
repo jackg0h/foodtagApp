@@ -495,7 +495,7 @@
 				DEVELOPMENT_TEAM = UNYCUM5B43;
 				INFOPLIST_FILE = foodtagios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jack.foodtagios;
+				PRODUCT_BUNDLE_IDENTIFIER = jack.foodtag;
 				PRODUCT_NAME = FoodTag;
 				SWIFT_VERSION = 3.0;
 			};
@@ -510,7 +510,7 @@
 				DEVELOPMENT_TEAM = UNYCUM5B43;
 				INFOPLIST_FILE = foodtagios/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jack.foodtagios;
+				PRODUCT_BUNDLE_IDENTIFIER = jack.foodtag;
 				PRODUCT_NAME = FoodTag;
 				SWIFT_VERSION = 3.0;
 			};

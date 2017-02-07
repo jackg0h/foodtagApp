@@ -24,7 +24,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
     var sessionOutput = AVCapturePhotoOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
     var foodImage: UIImage!
-    let URL_PATH : String = "https://ca9b4884.ngrok.io"
+    let URL_PATH : String = "https://5daf5f33.ngrok.io/picture"
     
     
     
@@ -33,11 +33,6 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         let deviceSession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInDuoCamera,.builtInTelephotoCamera,.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .unspecified)
         
         for device in (deviceSession?.devices)! {
@@ -64,7 +59,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                             
                             cameraView.layer.addSublayer(previewLayer)
                             
-
+                            
                             //cameraView.addSubview(button)
                             
                             previewLayer.position = CGPoint (x: self.cameraView.frame.width / 2, y: self.cameraView.frame.height / 2)
@@ -87,6 +82,12 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
             }
             
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+ 
         
     }
     
@@ -127,7 +128,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                     multipartFormData.append(data!, withName: "file",fileName: "file", mimeType: "image/jpeg")
                    
             },
-                to: "https://23409498.ngrok.io/picture",
+                to: URL_PATH,
                 headers: headers,
                 encodingCompletion: { encodingResult in
                     switch encodingResult {
