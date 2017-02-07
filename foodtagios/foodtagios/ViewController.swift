@@ -69,8 +69,8 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
                             captureSession.startRunning()
                             
                         }
-                        if captureSession.canSetSessionPreset(AVCaptureSessionPreset640x480){
-                            captureSession.sessionPreset = AVCaptureSessionPresetMedium
+                        if captureSession.canSetSessionPreset(AVCaptureSessionPresetHigh){
+                            captureSession.sessionPreset = AVCaptureSessionPresetHigh
                         }
                     }
                     
@@ -105,8 +105,6 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate  {
         
                 self.foodImage = UIImage(data: dataImage)
                 //c = CGSize(width: 100, height: 100)
-            
-            
             
                 let data = UIImageJPEGRepresentation(resizeImage(image: self.foodImage, targetSize: CGSize(width: 227, height: 227)), 0.8)
             
